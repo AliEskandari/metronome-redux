@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+html, body, #root, .container {
+  height: 100%;
+}
+
+.row-metronome-lights {
+  margin-bottom: 60px;
+}
+
+.input-bpm {
+  font-size: 10vw;
+  text-align: center;
+  border: none;
+  width: 100%;
+}
+
+*:focus {
+  outline: none;
+  box-shadow: none !important;
+}
+
