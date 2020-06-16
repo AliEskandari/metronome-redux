@@ -11,24 +11,23 @@ class MetronomeLightController extends React.Component {
      * Sets activeIndex to next index. Or resets activeIndex if tick is 0.
      */
     setActiveIndex = () => {
-        if (this.props.tick === 0) {
+        if (this.props.tick === -1) {
             this.activeIndex = -1;
         } else {
-            this.activeIndex = (this.activeIndex + 1) % this.props.length;
+            this.activeIndex = this.props.tick % this.props.length;
         }
     }
 
     render() {
-        console.log("MetronomeLightController Render - tick:", this.props.tick);
-
         this.setActiveIndex();
+        console.log(`LightController Rendering \n tick: ${this.props.tick} activeIndex: ${this.activeIndex}`);
 
         let lights = [];
 
         for (let index = 0; index < this.props.length; index++) {
             let active = this.activeIndex === index;
             lights.push(
-                <MetronomeLight key={index} active={active} />
+                <MetronomeLight key={index} active={active} volume={this.props.volume} />
             );
         }
         return (

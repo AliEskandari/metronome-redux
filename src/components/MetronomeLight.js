@@ -6,7 +6,7 @@ import clickAudio from '../sounds/clickSound.wav'
 const click = new UIfx(
     clickAudio,
     {
-        volume: 0.4, // number between 0.0 ~ 1.0
+        // volume: 0.9, // number between 0.0 ~ 1.0
         throttleMs: 100
     }
 )
@@ -20,10 +20,18 @@ const Dot = styled.span`
 `;
 
 class MetronomeLight extends Component {
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.active === nextProps.active) {
+            return false;
+        }
+        return true;
+    }
+
     render() {
+        console.log("Light rendering");
         if (this.props.active) {
-            console.log("play");
-            click.play();
+            console.log("sound");
+            click.setVolume(this.props.volume).play();
         }
         return (
             <Dot active={this.props.active}></Dot>
