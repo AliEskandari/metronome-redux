@@ -61,14 +61,19 @@ html, body, #root, .container {
 }
 
 .vert-input {
-  writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
+ 
     width: 100%;
     height: 100%;
-    color: black;
-    background-color: black;
-    padding: 0 5px;
+
+
 }
+
+@media (min-width: 768px) { 
+  .vert-input {
+    writing-mode: bt-lr; /* IE */
+  -webkit-appearance: slider-vertical; /* WebKit */
+  }
+ }
 
 .btn {
   background-color: black;
