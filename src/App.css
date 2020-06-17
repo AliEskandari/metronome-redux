@@ -1,3 +1,6 @@
+body {
+  font-family: "HelveticaNeue-Thin", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+}
 .App {
   text-align: center;
 }
@@ -67,3 +70,15 @@ html, body, #root, .container {
     padding: 0 5px;
 }
 
+.btn {
+  background-color: black;
+  border: none;
+}
+
+.btn:hover {
+  background-color: black;
+}
+
+.btn:active {
+  background-color: black;
+}

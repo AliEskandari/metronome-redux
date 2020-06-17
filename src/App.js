@@ -43,7 +43,7 @@ function App() {
    * Then set bpm to integer from input value. Then plays the timer
    * if the status was already playing.
    */
-  const handleBpmChange = (e) => {
+  const handleBpmInputChange = (e) => {
     let string = e.target.value;
     if (string === "") {
       setBpmInputValue("");
@@ -66,36 +66,64 @@ function App() {
   }
 
   const handleVolumeChange = (e) => {
+    console.log("setting volume");
     setVolume(parseFloat(e.target.value));
   }
 
-  return (
-    <Container className="d-flex align-items-center justify-content-between">
-      <div>
+  const handleBpmChange = (delta) => {
+    bpm.current = bpm.current + delta;
+    setBpmInputValue(bpm.current);
+    resetTimer();
+    if (playStatus.current === true) {
+      startTimer();
+    }
+  }
 
-      </div>
-      <div>
-        <Row className="d-flex justify-content-center">
-          <Col xs={4} className="text-center">
-            <input value={bpmInputValue} className="input-bpm" onChange={handleBpmChange} />
+  return (
+    <Container className="d-flex align-items-center justify-content-between flex-wrap">
+      <Col md={2} className="d-none d-sm-none d-md-block">
+      </Col>
+
+      <Col xs={12} md={8}>
+        <Row className="d-flex align-items-center justify-content-between flex-nowrap no-gutters">
+          <Col xs={1} className="d-flex justify-content-center">
+            <Button block onClick={() => handleBpmChange(-5)}>-5</Button>
+          </Col>
+          <Col xs={1} className="d-flex justify-content-center">
+            <Button block onClick={() => handleBpmChange(-1)}>-</Button>
+          </Col>
+
+          <Col xs={6} className="text-center">
+            <input value={bpmInputValue} className="input-bpm" onChange={handleBpmInputChange} />
+          </Col>
+
+          <Col xs={1} className="d-flex justify-content-center">
+            <Button block onClick={() => handleBpmChange(1)}>+</Button>
+          </Col>
+          <Col xs={1} className="d-flex justify-content-center">
+            <Button block onClick={() => handleBpmChange(5)}>+5</Button>
           </Col>
         </Row>
+
         <Row className="d-flex justify-content-center row-metronome-lights">
           <Col xs={6} className="">
             <MetronomeLightController tick={tick} length={4} volume={volume} />
           </Col>
         </Row>
+
         <Row className="d-flex justify-content-center">
           <Col xs={6} className="d-flex justify-content-center">
-            <Button style={{ backgroundColor: "black", border: "none" }} onClick={togglePlayStop}>{!playStatus.current ? "Play" : "Stop"}</Button>
-
+            <Button onClick={togglePlayStop}>
+              {!playStatus.current ? "Play" : "Stop"}
+            </Button>
           </Col>
         </Row>
-      </div>
-      <div>
-        <input type="range" className="vert-input" min="0.1" max="1.0" step="0.05" value={volume}
+      </Col>
+
+      <Col xs={12} md={{ span: 1, offset: 1 }} className="d-flex justify-content-center">
+        <input type="range" className="vert-input" min="0.0" max="1.0" step="0.05" value={volume}
           onChange={handleVolumeChange} />
-      </div>
+      </Col>
     </Container>
 
   );
