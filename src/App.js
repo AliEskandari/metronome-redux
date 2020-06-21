@@ -1,7 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import './App.css';
 import { Row, Col, Container, Button } from 'react-bootstrap';
 import MetronomeLightController from './components/MetronomeLightController'
+import KeyboardEventHandler from 'react-keyboard-event-handler'
 
 function App() {
   const interval = useRef();
@@ -11,28 +12,39 @@ function App() {
   const [bpmInputValue, setBpmInputValue] = useState(parseInt(bpm.current));
   const [tick, setTick] = useState(-1); // must be state variable to re-render light controller
 
+  /**
+   * Sets tick to 0 and creats timer loop to increment tick.
+   */
   const startTimer = () => {
     console.log("play at bpm:", bpm.current);
 
-    setTick(0); // run first time
+    setTick(0); // cause re-render => play button: "Stop", metronome lights: 1st active
     let ms = 60000 / bpm.current;
     interval.current = setInterval(() => {
       setTick(tick => tick + 1); // 1st iteration will run after interval time
     }, ms);
   }
 
+  /**
+   * Clears timer loop, set's tick to -1, leads to re-render.
+   */
   const resetTimer = () => {
     clearInterval(interval.current);
-    setTick(-1);
+    setTick(-1); // cause re-render of play button (to "play") and lights (to blank lights)
   }
 
+  /**
+   * Toggle play stop
+   */
   const togglePlayStop = () => {
+    console.log("toggling play stop");
     if (playStatus.current === true) {
-      resetTimer();
       playStatus.current = false;
+      resetTimer();
     } else {
-      startTimer();
       playStatus.current = true;
+      startTimer();
+
     }
   }
 
@@ -65,12 +77,18 @@ function App() {
     }
   }
 
+  /**
+   * Set the volume
+   */
   const handleVolumeChange = (e) => {
     console.log("setting volume");
     setVolume(parseFloat(e.target.value));
   }
 
-  const handleBpmChange = (delta) => {
+  /**
+   * Change bpm depending on delta
+   */
+  const handleBpmChange = (e, delta) => {
     bpm.current = bpm.current + delta;
     setBpmInputValue(bpm.current);
     resetTimer();
@@ -79,8 +97,18 @@ function App() {
     }
   }
 
+  /**
+   * Prevents default. Used on buttons.
+   */
+  const preventDefault = (e) => {
+    e.preventDefault();
+  }
+
   return (
     <Container className="d-flex align-items-center justify-content-between flex-wrap">
+
+      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={togglePlayStop} handleFocusableElements={true} />
+
       <Row>
 
         {/* Spacer: None on mobile, Left for medium */}
@@ -91,10 +119,10 @@ function App() {
         <Col xs={12} md={8}>
           <Row className="d-flex align-items-center justify-content-between flex-nowrap no-gutters">
             <Col xs={1} className="d-flex justify-content-center">
-              <Button block onClick={() => handleBpmChange(-5)}>-5</Button>
+              <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -5)}>-5</Button>
             </Col>
             <Col xs={1} className="d-flex justify-content-center">
-              <Button block onClick={() => handleBpmChange(-1)}>-</Button>
+              <Button block onClick={(e) => handleBpmChange(e, -1)}>-</Button>
             </Col>
 
             <Col xs={6} className="text-center">
@@ -102,10 +130,10 @@ function App() {
             </Col>
 
             <Col xs={1} className="d-flex justify-content-center">
-              <Button block onClick={() => handleBpmChange(1)}>+</Button>
+              <Button block onClick={(e) => handleBpmChange(e, 1)}>+</Button>
             </Col>
             <Col xs={1} className="d-flex justify-content-center">
-              <Button block onClick={() => handleBpmChange(5)}>+5</Button>
+              <Button block onClick={(e) => handleBpmChange(e, 5)}>+5</Button>
             </Col>
           </Row>
 

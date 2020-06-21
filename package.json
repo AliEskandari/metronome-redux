@@ -1,8 +1,8 @@
 {
+  "homepage": "http://AliEskandari.github.io/metronome",
   "name": "metronome",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://alieskandari.github.io/metronome",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -11,6 +11,7 @@
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
     "react-dom": "^16.13.1",
+    "react-keyboard-event-handler": "^1.5.4",
     "react-scripts": "3.4.1",
     "styled-components": "^5.1.1",
     "uifx": "^2.0.7"
