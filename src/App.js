@@ -122,7 +122,7 @@ function App() {
               <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -5)}>-5</Button>
             </Col>
             <Col xs={1} className="d-flex justify-content-center">
-              <Button block onClick={(e) => handleBpmChange(e, -1)}>-</Button>
+              <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -1)}>-</Button>
             </Col>
 
             <Col xs={6} className="text-center">
@@ -130,10 +130,10 @@ function App() {
             </Col>
 
             <Col xs={1} className="d-flex justify-content-center">
-              <Button block onClick={(e) => handleBpmChange(e, 1)}>+</Button>
+              <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, 1)}>+</Button>
             </Col>
             <Col xs={1} className="d-flex justify-content-center">
-              <Button block onClick={(e) => handleBpmChange(e, 5)}>+5</Button>
+              <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, 5)}>+5</Button>
             </Col>
           </Row>
 
