@@ -1,5 +1,6 @@
 body {
-  font-family: "HelveticaNeue-Thin", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 100;
 }
 .App {
   text-align: center;
@@ -49,10 +50,24 @@ html, body, #root, .container {
 }
 
 .input-bpm {
-  font-size: 10vw;
+  font-size: 10rem;
   text-align: center;
   border: none;
   width: 100%;
+  font-weight: 100;
+}
+
+@media (min-width: 576px) { /* sm */
+  .input-bpm { font-size: 10rem; }
+}
+@media (min-width: 768px) { /* md */
+  .input-bpm { font-size: 10rem; }
+}
+@media (min-width: 992px) { /* lg */
+  .input-bpm { font-size: 10rem; }
+}
+@media (min-width: 1200px) { /* xl */
+  .input-bpm { font-size: 12rem; }
 }
 
 *:focus {
@@ -78,6 +93,7 @@ html, body, #root, .container {
 .btn {
   background-color: black;
   border: none;
+  font-weight: 300;
 }
 
 .btn:hover {

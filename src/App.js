@@ -117,35 +117,35 @@ function App() {
 
         {/* Metronome full row on mobile, Middle for medium */}
         <Col xs={12} md={8}>
-          <Row className="d-flex align-items-center justify-content-between flex-nowrap no-gutters">
-            <Col xs={1} className="d-flex justify-content-center">
-              <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -5)}>-5</Button>
+          <Row className="d-flex align-items-center justify-content-between">
+            <Col xs={{ span: 3, order: 2 }} lg={{ span: 1, order: 1 }} className="d-flex px-3 px-lg-0 justify-content-center">
+              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -5)}>-5</Button>
             </Col>
-            <Col xs={1} className="d-flex justify-content-center">
-              <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -1)}>-</Button>
+            <Col xs={{ span: 3, order: 3 }} lg={{ span: 1, order: 2 }} className="d-flex px-3 px-lg-0 justify-content-center">
+              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -1)}>-</Button>
             </Col>
 
-            <Col xs={6} className="text-center">
+            <Col xs={{ span: 12, order: 1 }} lg={{ span: 6, order: 3 }} className="text-center">
               <input value={bpmInputValue} className="input-bpm" onChange={handleBpmInputChange} />
             </Col>
 
-            <Col xs={1} className="d-flex justify-content-center">
-              <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, 1)}>+</Button>
+            <Col xs={{ span: 3, order: 4 }} lg={{ span: 1, order: 4 }} className="d-flex px-3 px-lg-0 justify-content-center">
+              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, 1)}>+</Button>
             </Col>
-            <Col xs={1} className="d-flex justify-content-center">
-              <Button block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, 5)}>+5</Button>
+            <Col xs={{ span: 3, order: 5 }} lg={{ span: 1, order: 5 }} className="d-flex px-3 px-lg-0 justify-content-center">
+              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, 5)}>+5</Button>
             </Col>
           </Row>
 
-          <Row className="d-flex justify-content-center row-metronome-lights">
-            <Col xs={6} className="">
+          <Row className="d-flex justify-content-center row-metronome-lights mt-5 mt-lg-0">
+            <Col xs={8} sm={6} md={8} lg={6} className="">
               <MetronomeLightController tick={tick} length={4} volume={volume} />
             </Col>
           </Row>
 
           <Row className="d-flex justify-content-center">
             <Col xs={6} className="d-flex justify-content-center">
-              <Button onClick={togglePlayStop}>
+              <Button size="lg" onClick={togglePlayStop}>
                 {!playStatus.current ? "Play" : "Stop"}
               </Button>
             </Col>
