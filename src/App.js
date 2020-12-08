@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
 import { Row, Col, Container, Button } from 'react-bootstrap';
-import PlayButton from "./components/PlayButton"
+import PlayButton from "./components/PlayButton";
+import VolumeBar from "./components/VolumeBar";
 import MetronomeLightController from './components/MetronomeLightController'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { connect } from "react-redux";
@@ -10,8 +11,6 @@ import { togglePlayStatus } from "./store/reducer";
 function ConnectedApp(props) {
   const interval = useRef();
   const bpm = useRef(100);
-  const playStatus = useRef(false);
-  const [volume, setVolume] = useState(.5);
   const [bpmInputValue, setBpmInputValue] = useState(parseInt(bpm.current));
   const [tick, setTick] = useState(-1); // must be state variable to re-render light controller
 
@@ -58,20 +57,12 @@ function ConnectedApp(props) {
         setBpmInputValue(num);
         bpm.current = num;
         resetTimer(); // stop timer, set tick to 0
-        if (bpm.current > 0 && bpm.current <= 200 && playStatus.current === true) {
+        if (bpm.current > 0 && bpm.current <= 200 && props.playStatus === true) {
           startTimer(); // set tick to 1, start timer
           // Render with tick: 1, bpm: new bpm,
         }
       }
     }
-  }
-
-  /**
-   * Set the volume
-   */
-  const handleVolumeChange = (e) => {
-    console.log("setting volume");
-    setVolume(parseFloat(e.target.value));
   }
 
   /**
@@ -81,7 +72,7 @@ function ConnectedApp(props) {
     bpm.current = bpm.current + delta;
     setBpmInputValue(bpm.current);
     resetTimer();
-    if (playStatus.current === true) {
+    if (props.playStatus === true) {
       startTimer();
     }
   }
@@ -128,7 +119,7 @@ function ConnectedApp(props) {
 
           <Row className="d-flex justify-content-center row-metronome-lights mt-5 mt-lg-0">
             <Col xs={8} sm={6} md={8} lg={6} className="">
-              <MetronomeLightController tick={tick} length={4} volume={volume} />
+              <MetronomeLightController tick={tick} length={4} />
             </Col>
           </Row>
 
@@ -141,8 +132,7 @@ function ConnectedApp(props) {
 
         {/* Volume: full row on mobile, Right for medium */}
         <Col xs={12} md={{ span: 1, offset: 1 }} className="d-flex justify-content-center py-4">
-          <input type="range" className="vert-input" min="0.0" max="1.0" step="0.05" value={volume}
-            onChange={handleVolumeChange} />
+            <VolumeBar />
         </Col>
       </Row>
     </Container>
