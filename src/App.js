@@ -1,10 +1,13 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
 import { Row, Col, Container, Button } from 'react-bootstrap';
+import PlayButton from "./components/PlayButton"
 import MetronomeLightController from './components/MetronomeLightController'
 import KeyboardEventHandler from 'react-keyboard-event-handler'
+import { connect } from "react-redux";
+import { togglePlayStatus } from "./store/reducer";
 
-function App() {
+function ConnectedApp(props) {
   const interval = useRef();
   const bpm = useRef(100);
   const playStatus = useRef(false);
@@ -33,23 +36,9 @@ function App() {
     setTick(-1); // cause re-render of play button (to "play") and lights (to blank lights)
   }
 
-  /**
-   * Toggle play stop
-   */
-  const togglePlayStop = () => {
-    console.log("toggling play stop");
-    if (playStatus.current === true) {
-      playStatus.current = false;
-      resetTimer();
-    } else {
-      playStatus.current = true;
-      startTimer();
-
-    }
-  }
 
   /**
-   * Runs when the input value changes. Does NOT run on initial 
+   * Runs when the input value changes. Does NOT run on initial
    * render. Will set state var to either empty string or num
    * between specified values. Otherwise, input value is unchanged.
    * Then set bpm to integer from input value. Then plays the timer
@@ -71,7 +60,7 @@ function App() {
         resetTimer(); // stop timer, set tick to 0
         if (bpm.current > 0 && bpm.current <= 200 && playStatus.current === true) {
           startTimer(); // set tick to 1, start timer
-          // Render with tick: 1, bpm: new bpm, 
+          // Render with tick: 1, bpm: new bpm,
         }
       }
     }
@@ -107,7 +96,7 @@ function App() {
   return (
     <Container className="d-flex align-items-center justify-content-between flex-wrap">
 
-      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={togglePlayStop} handleFocusableElements={true} />
+      <KeyboardEventHandler handleKeys={['space']} onKeyEvent={props.togglePlayStatus} handleFocusableElements={true} />
 
       <Row>
 
@@ -145,9 +134,7 @@ function App() {
 
           <Row className="d-flex justify-content-center">
             <Col xs={6} className="d-flex justify-content-center">
-              <Button size="lg" onClick={togglePlayStop}>
-                {!playStatus.current ? "Play" : "Stop"}
-              </Button>
+             <PlayButton />
             </Col>
           </Row>
         </Col>
@@ -161,5 +148,7 @@ function App() {
     </Container>
   );
 }
+
+const App = connect(null, { togglePlayStatus })(ConnectedApp);
 
 export default App;
