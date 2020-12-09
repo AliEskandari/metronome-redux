@@ -29,7 +29,7 @@ class ConnectedMetronomeLightController extends React.Component {
 
     render() {
         this.setActiveIndex();
-        console.log(`LightController Rendering \n tick: ${this.props.tick} activeIndex: ${this.activeIndex}`);
+        console.log("MetronomeLightController: Render:", { tick: this.props.tick, activeIndex: this.activeIndex });
 
         this.sound.volume = this.props.volume;
         if (this.props.tick !== -1) {

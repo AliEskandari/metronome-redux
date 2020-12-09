@@ -28,7 +28,7 @@ export default function reducer(state = initialState, action) {
         case PLAY:
             return { ...state, playStatus: true, dateTime: action.dateTime }
         case STOP:
-            return { ...state, playStatus: false, timeElapsed: 0, tick: -1 }
+            return { ...state, playStatus: false, timeElapsed: 0, tick: -1, dateTime: null }
         case TICK:
             let newTimeElapsed = state.timeElapsed + (action.dateTime - state.dateTime);
             let tick = Math.floor(newTimeElapsed / state.mspb);
