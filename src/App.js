@@ -70,7 +70,9 @@ function ConnectedApp(props) {
           <VolumeBar />
         </Col>
       </Row>
+
       <Timer />
+
     </Container>
   );
 }
