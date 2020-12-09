@@ -10,42 +10,24 @@ class ConnectedPlayButton extends React.Component {
      */
     togglePlayStop = () => {
         console.log("toggling play stop");
-        !this.props.playStatus ? this.start() : this.stop();
+        !this.props.playStatus ? this.startTimer() : this.stopTimer();
     }
 
     /**
      * Sets tick to 0 and creats timer loop to increment tick.
      */
     startTimer = () => {
-        console.log("play at bpm:", this.props.bpm);
-
-        this.props.setTick(0); // cause re-render => play button: "Stop", metronome lights: 1st active
-        let mspb = 60000 / this.props.bpm;
+        this.props.play(Date.now());
         this.interval = setInterval(() => {
-            this.props.setTick(this.props.tick + 1) // 1st iteration will run after interval time
-        }, mspb);
+            this.props.tick(Date.now());
+        });
     }
 
     /**
      * Clears timer loop, set's tick to -1, leads to re-render.
      */
-    resetTimer = () => {
+    stopTimer = () => {
         clearInterval(this.interval);
-        this.props.setTick(-1) // cause re-render of play button (to "play") and lights (to blank lights)
-    }
-
-    start = () => {
-        this._interval = requestAnimationFrame(this.progress);
-        this.props.play(Date.now())
-    }
-
-    progress = () => {
-        this.props.tick(Date.now());
-        this._interval = requestAnimationFrame(this.progress);
-    }
-
-    stop() {
-        cancelAnimationFrame(this._interval);
         this.props.stop();
     }
 
