@@ -5,18 +5,12 @@ import PlayButton from "./components/PlayButton";
 import VolumeBar from "./components/VolumeBar";
 import BpmInput from "./components/BpmInput";
 import MetronomeLightController from './components/MetronomeLightController'
+import Timer from "./components/Timer";
 import KeyboardEventHandler from 'react-keyboard-event-handler'
 import { connect } from "react-redux";
 import { togglePlayStatus, incrementBpm } from "./store/reducer";
 
 function ConnectedApp(props) {
-
-  /**
-   * Change bpm depending on delta
-   */
-  const handleBpmChange = (e, delta) => {
-    props.incrementBpm(delta)
-  }
 
   /**
    * Prevents default. Used on buttons.
@@ -40,10 +34,10 @@ function ConnectedApp(props) {
         <Col xs={12} md={8}>
           <Row className="d-flex align-items-center justify-content-between">
             <Col xs={{ span: 3, order: 2 }} lg={{ span: 1, order: 1 }} className="d-flex px-3 px-lg-0 justify-content-center">
-              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -5)}>-5</Button>
+              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(-5)}>-5</Button>
             </Col>
             <Col xs={{ span: 3, order: 3 }} lg={{ span: 1, order: 2 }} className="d-flex px-3 px-lg-0 justify-content-center">
-              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, -1)}>-</Button>
+              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(-1)}>-</Button>
             </Col>
 
             <Col xs={{ span: 12, order: 1 }} lg={{ span: 6, order: 3 }} className="text-center">
@@ -51,10 +45,10 @@ function ConnectedApp(props) {
             </Col>
 
             <Col xs={{ span: 3, order: 4 }} lg={{ span: 1, order: 4 }} className="d-flex px-3 px-lg-0 justify-content-center">
-              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, 1)}>+</Button>
+              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(1)}>+</Button>
             </Col>
             <Col xs={{ span: 3, order: 5 }} lg={{ span: 1, order: 5 }} className="d-flex px-3 px-lg-0 justify-content-center">
-              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => handleBpmChange(e, 5)}>+5</Button>
+              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(5)}>+5</Button>
             </Col>
           </Row>
 
@@ -76,6 +70,7 @@ function ConnectedApp(props) {
           <VolumeBar />
         </Col>
       </Row>
+      <Timer />
     </Container>
   );
 }

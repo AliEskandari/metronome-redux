@@ -21,14 +21,22 @@ const initialState = {
     dateTime: null
 }
 
+const stopState = {
+    playStatus: false,
+    tick: -1,
+    timeElapsed: 0,
+    dateTime: null
+}
+
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case TOGGLE_PLAY_STATUS:
-            return { ...state, playStatus: !state.playStatus }
+            if (state.playStatus) return { ...state, ...stopState };
+            else return { ...state, playStatus: true, dateTime: Date.now() }
         case PLAY:
             return { ...state, playStatus: true, dateTime: action.dateTime }
         case STOP:
-            return { ...state, playStatus: false, timeElapsed: 0, tick: -1, dateTime: null }
+            return { ...state, ...stopState }
         case TICK:
             let newTimeElapsed = state.timeElapsed + (action.dateTime - state.dateTime);
             let tick = Math.floor(newTimeElapsed / state.mspb);
@@ -42,7 +50,6 @@ export default function reducer(state = initialState, action) {
             if (newBpm >= 200) newBpm = 200;
             if (newBpm <= 5) newBpm = 5;
             return { ...state, bpm: newBpm, mspb: 60000 / newBpm }
-
         default:
             return state;
     }
