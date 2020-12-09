@@ -31,6 +31,11 @@ class ConnectedMetronomeLightController extends React.Component {
         this.setActiveIndex();
         console.log(`LightController Rendering \n tick: ${this.props.tick} activeIndex: ${this.activeIndex}`);
 
+        this.sound.volume = this.props.volume;
+        if (this.props.tick !== -1) {
+            this.sound.play();
+        }
+
         let lights = [];
         for (let index = 0; index < this.props.length; index++) {
             let active = this.activeIndex === index;
