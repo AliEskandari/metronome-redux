@@ -1,10 +1,12 @@
 import React from 'react';
-import MetronomeLight from './MetronomeLight'
+import MetronomeLight from './MetronomeLight';
+import { connect } from 'react-redux';
 
-class MetronomeLightController extends React.Component {
+class ConnectedMetronomeLightController extends React.Component {
     constructor(props) {
         super(props);
         this.activeIndex = -1;
+        this.sound = new Audio("/clickSound.mp3");
     }
 
     /**
@@ -18,16 +20,22 @@ class MetronomeLightController extends React.Component {
         }
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        if (this.props.tick === nextProps.tick) {
+            return false;
+        }
+        return true;
+    }
+
     render() {
         this.setActiveIndex();
         console.log(`LightController Rendering \n tick: ${this.props.tick} activeIndex: ${this.activeIndex}`);
 
         let lights = [];
-
         for (let index = 0; index < this.props.length; index++) {
             let active = this.activeIndex === index;
             lights.push(
-                <MetronomeLight key={index} active={active} volume={this.props.volume} />
+                <MetronomeLight key={index} active={active} />
             );
         }
         return (
@@ -38,4 +46,7 @@ class MetronomeLightController extends React.Component {
     }
 }
 
+const select = (state) => { return { volume: state.volume, tick: state.tick } };
+
+const MetronomeLightController = connect(select)(ConnectedMetronomeLightController);
 export default MetronomeLightController;

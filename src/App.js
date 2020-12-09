@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import './App.css';
 import { Row, Col, Container, Button } from 'react-bootstrap';
 import PlayButton from "./components/PlayButton";
@@ -10,41 +10,12 @@ import { connect } from "react-redux";
 import { togglePlayStatus, incrementBpm } from "./store/reducer";
 
 function ConnectedApp(props) {
-  const interval = useRef();
-  const bpm = useRef(100);
-  const [tick, setTick] = useState(-1); // must be state variable to re-render light controller
-
-  /**
-   * Sets tick to 0 and creats timer loop to increment tick.
-   */
-  const startTimer = () => {
-    console.log("play at bpm:", bpm.current);
-
-    setTick(0); // cause re-render => play button: "Stop", metronome lights: 1st active
-    let ms = 60000 / bpm.current;
-    interval.current = setInterval(() => {
-      setTick(tick => tick + 1); // 1st iteration will run after interval time
-    }, ms);
-  }
-
-  /**
-   * Clears timer loop, set's tick to -1, leads to re-render.
-   */
-  const resetTimer = () => {
-    clearInterval(interval.current);
-    setTick(-1); // cause re-render of play button (to "play") and lights (to blank lights)
-  }
 
   /**
    * Change bpm depending on delta
    */
   const handleBpmChange = (e, delta) => {
     props.incrementBpm(delta)
-    //setBpmInputValue(bpm.current);
-    resetTimer();
-    if (props.playStatus === true) {
-      startTimer();
-    }
   }
 
   /**
@@ -89,7 +60,7 @@ function ConnectedApp(props) {
 
           <Row className="d-flex justify-content-center row-metronome-lights mt-5 mt-lg-0">
             <Col xs={8} sm={6} md={8} lg={6} className="">
-              <MetronomeLightController tick={tick} length={4} />
+              <MetronomeLightController length={4} />
             </Col>
           </Row>
 

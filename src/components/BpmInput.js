@@ -21,12 +21,7 @@ class ConnectedBpmInput extends React.Component {
         if (!isNaN(parsedString)) {
             let num = parsedString;
             if (num > 0 && num <= 200) {
-                this.props.setBpm(num)
-                //resetTimer(); // stop timer, set tick to 0
-                if (this.props.bpm > 0 && this.props.bpm <= 200 && this.props.playStatus === true) {
-                    //startTimer(); // set tick to 1, start timer
-                    // Render with tick: 1, bpm: new bpm,
-                }
+                this.props.setBpm(num);
             }
         }
     }
