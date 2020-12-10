@@ -7,7 +7,7 @@ class ConnectedPlayButton extends React.Component {
     render() {
         const { playStatus } = this.props;
         return (
-            <Button onKeyDown={(event) => event.preventDefault()} size="lg" onClick={this.props.togglePlayStatus}>
+            <Button variant="" onKeyDown={(event) => event.preventDefault()} size="lg" onClick={this.props.togglePlayStatus}>
                 {!playStatus ? "Play" : "Stop"}
             </Button>
         )

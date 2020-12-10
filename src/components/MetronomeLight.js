@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Dot = styled.span`
     height: 50px;
     width: 50px;
-    background-color: ${props => props.active ? "#000" : "#bbb"};
+    background-color: ${props => props.active ? "#000" : "#ececec"};
     border-radius: 50%;
     display: inline-block;
 `;

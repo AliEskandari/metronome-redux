@@ -34,10 +34,10 @@ function ConnectedApp(props) {
         <Col xs={12} md={8}>
           <Row className="d-flex align-items-center justify-content-between">
             <Col xs={{ span: 3, order: 2 }} lg={{ span: 1, order: 1 }} className="d-flex px-3 px-lg-0 justify-content-center">
-              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(-5)}>-5</Button>
+              <Button variant="" size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(-5)}>-5</Button>
             </Col>
             <Col xs={{ span: 3, order: 3 }} lg={{ span: 1, order: 2 }} className="d-flex px-3 px-lg-0 justify-content-center">
-              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(-1)}>-</Button>
+              <Button variant="" size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(-1)}>-</Button>
             </Col>
 
             <Col xs={{ span: 12, order: 1 }} lg={{ span: 6, order: 3 }} className="text-center">
@@ -45,10 +45,10 @@ function ConnectedApp(props) {
             </Col>
 
             <Col xs={{ span: 3, order: 4 }} lg={{ span: 1, order: 4 }} className="d-flex px-3 px-lg-0 justify-content-center">
-              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(1)}>+</Button>
+              <Button variant="" size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(1)}>+</Button>
             </Col>
             <Col xs={{ span: 3, order: 5 }} lg={{ span: 1, order: 5 }} className="d-flex px-3 px-lg-0 justify-content-center">
-              <Button size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(5)}>+5</Button>
+              <Button variant="" size="lg" block onKeyDown={preventDefault} onClick={(e) => props.incrementBpm(5)}>+5</Button>
             </Col>
           </Row>
 
